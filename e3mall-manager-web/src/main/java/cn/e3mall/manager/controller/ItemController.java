@@ -27,7 +27,7 @@ public class ItemController {
 	@RequestMapping("list")
 	@ResponseBody
 	public DataGridPageBean findByPage(@RequestParam(defaultValue = "1") Integer page,
-			@RequestParam(defaultValue = "1") Integer rows) {
+			@RequestParam(defaultValue = "30") Integer rows) {
 		return itemService.findByPage(page, rows);
 	}
 }
