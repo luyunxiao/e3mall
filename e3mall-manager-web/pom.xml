@@ -106,6 +106,12 @@
 			<artifactId>fastdfs_client</artifactId>
 			<version>1.25</version>
 		</dependency>
+		<!-- 内容接口 -->
+		<dependency>
+			<groupId>cn.e3mall</groupId>
+			<artifactId>e3mall-content-interface</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<plugins>
