@@ -31,4 +31,6 @@
 		id="itemCatService" timeout="1000000" retries="2" />
 	<dubbo:reference interface="cn.e3mall.content.service.ContentCategoryService"
 		id="contentCategoryService" timeout="1000000" retries="2" />
+	<dubbo:reference interface="cn.e3mall.content.service.ContentService"
+		id="contentService" timeout="1000000" retries="2" />
 </beans>
