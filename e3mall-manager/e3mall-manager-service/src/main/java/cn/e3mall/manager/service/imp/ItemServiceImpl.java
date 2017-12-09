@@ -57,6 +57,7 @@ public class ItemServiceImpl implements ItemService {
 		item.setCreated(date);
 		item.setUpdated(date);
 		item.setStatus((byte) 1);
+		item.setPrice(item.getPrice() * 100);
 		// 保存商品
 		itemMapper.insert(item);
 		// 补全商品描述信息属性
