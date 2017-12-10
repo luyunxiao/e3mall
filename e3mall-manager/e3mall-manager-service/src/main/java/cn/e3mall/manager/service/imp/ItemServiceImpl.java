@@ -12,9 +12,11 @@ import com.github.pagehelper.PageInfo;
 import cn.e3mall.manager.service.ItemService;
 import cn.e3mall.mapper.TbItemDescMapper;
 import cn.e3mall.mapper.TbItemMapper;
+import cn.e3mall.mapper.TbItemParamItemMapper;
 import cn.e3mall.pojo.TbItem;
 import cn.e3mall.pojo.TbItemDesc;
 import cn.e3mall.pojo.TbItemExample;
+import cn.e3mall.pojo.TbItemParamItem;
 import cn.e3mall.utils.DataGridPageBean;
 import cn.e3mall.utils.E3mallResult;
 import cn.e3mall.utils.IDUtils;
@@ -27,6 +29,9 @@ public class ItemServiceImpl implements ItemService {
 
 	@Autowired
 	private TbItemDescMapper itemDescMapper;
+
+	@Autowired
+	private TbItemParamItemMapper itemParamItemMapper;
 
 	@Override
 	public TbItem findById(Long id) {
@@ -46,7 +51,7 @@ public class ItemServiceImpl implements ItemService {
 	}
 
 	@Override
-	public E3mallResult saveItem(TbItem item, TbItemDesc itemDesc) {
+	public E3mallResult saveItem(TbItem item, TbItemDesc itemDesc, TbItemParamItem itemParamItem) {
 		// 补全属性
 		// 设置Id
 		// 使用工具类生成ID
@@ -57,7 +62,6 @@ public class ItemServiceImpl implements ItemService {
 		item.setCreated(date);
 		item.setUpdated(date);
 		item.setStatus((byte) 1);
-		item.setPrice(item.getPrice() * 100);
 		// 保存商品
 		itemMapper.insert(item);
 		// 补全商品描述信息属性
@@ -65,6 +69,11 @@ public class ItemServiceImpl implements ItemService {
 		itemDesc.setCreated(date);
 		itemDesc.setUpdated(date);
 		itemDescMapper.insert(itemDesc);
+		// 补全商品参数信息
+		itemParamItem.setItemId(id);
+		itemParamItem.setCreated(date);
+		itemParamItem.setUpdated(date);
+		itemParamItemMapper.insert(itemParamItem);
 		return E3mallResult.ok();
 	}
 
