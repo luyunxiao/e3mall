@@ -1,5 +1,6 @@
 package cn.e3mall.content.service.imp;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import cn.e3mall.pojo.TbContent;
 import cn.e3mall.pojo.TbContentExample;
 import cn.e3mall.pojo.TbContentExample.Criteria;
 import cn.e3mall.utils.DataGridPageBean;
+import cn.e3mall.utils.E3mallResult;
 
 public class ContentServiceImpl implements ContentService {
 
@@ -35,6 +37,16 @@ public class ContentServiceImpl implements ContentService {
 		pageBean.setRows(list);
 		pageBean.setTotal(pageInfo.getTotal());
 		return pageBean;
+	}
+
+	@Override
+	public E3mallResult saveContent(TbContent content) {
+		// 补全属性
+		Date date = new Date();
+		content.setCreated(date);
+		content.setUpdated(date);
+		contentMapper.insert(content);
+		return E3mallResult.ok();
 	}
 
 }
