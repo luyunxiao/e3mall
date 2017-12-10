@@ -6,7 +6,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.e3mall.content.service.ContentService;
+import cn.e3mall.pojo.TbContent;
 import cn.e3mall.utils.DataGridPageBean;
+import cn.e3mall.utils.E3mallResult;
 
 @Controller
 public class ContentController {
@@ -18,5 +20,11 @@ public class ContentController {
 	@ResponseBody
 	public DataGridPageBean findByCategoryId(Long categoryId, Integer page, Integer rows) {
 		return contentService.findByCategoryId(categoryId, page, rows);
+	}
+
+	@RequestMapping("/content/save")
+	@ResponseBody
+	public E3mallResult saveContent(TbContent content) {
+		return contentService.saveContent(content);
 	}
 }
