@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import cn.e3mall.manager.service.ItemService;
 import cn.e3mall.pojo.TbItem;
 import cn.e3mall.pojo.TbItemDesc;
+import cn.e3mall.pojo.TbItemParamItem;
 import cn.e3mall.utils.DataGridPageBean;
 import cn.e3mall.utils.E3mallResult;
 
@@ -35,7 +36,7 @@ public class ItemController {
 
 	@RequestMapping("save")
 	@ResponseBody
-	public E3mallResult save(TbItem item, TbItemDesc itemDesc) {
-		return itemService.saveItem(item, itemDesc);
+	public E3mallResult save(TbItem item, TbItemDesc itemDesc, TbItemParamItem itemParamItem) {
+		return itemService.saveItem(item, itemDesc, itemParamItem);
 	}
 }

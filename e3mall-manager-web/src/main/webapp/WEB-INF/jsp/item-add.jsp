@@ -62,7 +62,7 @@ tr {
 				<td></td>
 			</tr>
 		</table>
-		<input type="hidden" name="itemParams" />
+		<input type="hidden" name="paramData" />
 	</form>
 	<div style="padding: 5px">
 		<a href="javascript:void(0)" class="easyui-linkbutton"
@@ -117,8 +117,8 @@ tr {
 		});
 		//把json对象转换成字符串
 		paramJson = JSON.stringify(paramJson);
-		$("#itemAddForm [name=itemParams]").val(paramJson);
-
+		$("#itemAddForm [name=paramData]").val(paramJson);
+		//itemParams
 		//ajax的post方式提交表单
 		//$("#itemAddForm").serialize()将表单序列号为key-value形式的字符串
 		//http请求体数据格式:username=zhangsan&age=19&address=.
