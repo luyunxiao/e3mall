@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 
@@ -11,6 +12,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
 import cn.e3mall.content.service.ContentService;
+import cn.e3mall.content.service.JedisService;
 import cn.e3mall.mapper.TbContentMapper;
 import cn.e3mall.pojo.TbContent;
 import cn.e3mall.pojo.TbContentExample;
@@ -18,6 +20,7 @@ import cn.e3mall.pojo.TbContentExample.Criteria;
 import cn.e3mall.utils.ADItem;
 import cn.e3mall.utils.DataGridPageBean;
 import cn.e3mall.utils.E3mallResult;
+import cn.e3mall.utils.JsonUtils;
 
 public class ContentServiceImpl implements ContentService {
 
@@ -44,6 +47,8 @@ public class ContentServiceImpl implements ContentService {
 
 	@Override
 	public E3mallResult saveContent(TbContent content) {
+		// 删除缓存,实现缓存和数据库数据同步
+		jedisService.hdel(INDEX_CACHE_ID, String.valueOf(content.getCategoryId()));
 		// 补全属性
 		Date date = new Date();
 		content.setCreated(date);
@@ -61,8 +66,20 @@ public class ContentServiceImpl implements ContentService {
 	@Value("${HEIGHTB}")
 	private Integer HEIGHTB;
 
+	@Autowired
+	private JedisService jedisService;
+
+	@Value("${INDEX_CACHE_ID}")
+	private String INDEX_CACHE_ID;
+
 	@Override
 	public List<ADItem> findAllByCategoryId(Long categoryId) {
+		// 先查询缓存
+		String adString = jedisService.hget(INDEX_CACHE_ID, categoryId + "");
+		if (StringUtils.isNotBlank(adString)) {
+			List<ADItem> jsonToList = JsonUtils.jsonToList(adString, ADItem.class);
+			return jsonToList;
+		}
 		// 创建example对象
 		TbContentExample example = new TbContentExample();
 		// 设置查询参数
@@ -91,6 +108,9 @@ public class ContentServiceImpl implements ContentService {
 			// 把ad放入adList集合
 			list.add(adItem);
 		}
+		// 把查询数据添加redis数据库
+		// 把adlist集合转换层json字符串，存入redis
+		jedisService.hset(INDEX_CACHE_ID, String.valueOf(categoryId), JsonUtils.objectToJson(list));
 		return list;
 	}
 

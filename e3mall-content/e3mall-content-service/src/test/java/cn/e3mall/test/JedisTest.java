@@ -77,17 +77,4 @@ public class JedisTest {
 		System.out.println(address);
 		jedisCluster.close();
 	}
-
-	@Test
-	public void testSpring() {
-		ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext(
-				"classpath:spring/redis-cluster.xml");
-		JedisCluster jedisCluster = applicationContext.getBean(JedisCluster.class);
-		// 给redis集群设置值
-		jedisCluster.set("address", "上海");
-		// 获取redis集群中值
-		String address = jedisCluster.get("address");
-		System.out.println(address);
-		jedisCluster.close();
-	}
 }
