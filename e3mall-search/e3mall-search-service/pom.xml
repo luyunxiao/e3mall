@@ -73,10 +73,5 @@
 			<artifactId>zkclient</artifactId>
 			<version>${zkclient.version}</version>
 		</dependency>
-		<!-- 添加solr -->
-		<dependency>
-			<groupId>org.apache.solr</groupId>
-			<artifactId>solr-solrj</artifactId>
-		</dependency>
 	</dependencies>
 </project>

@@ -1,6 +1,8 @@
 package cn.e3mall.search.pojo;
 
-public class SearchItem {
+import java.io.Serializable;
+
+public class SearchItem implements Serializable {
 	private Long id;
 	private String title;
 	private String sell_point;
