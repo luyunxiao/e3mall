@@ -35,4 +35,6 @@
 		id="contentService" timeout="1000000" retries="2" />
 	<dubbo:reference interface="cn.e3mall.manager.service.ItemParamService"
 		id="itemParamService" timeout="1000000" retries="2" />
+	<dubbo:reference interface="cn.e3mall.search.service.SearchService"
+		id="searchService" timeout="1000000" retries="2" />
 </beans>

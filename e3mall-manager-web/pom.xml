@@ -112,6 +112,12 @@
 			<artifactId>e3mall-content-interface</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
+		<!-- 搜索接口 -->
+		<dependency>
+			<groupId>cn.e3mall</groupId>
+			<artifactId>e3mall-search-interface</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<plugins>
